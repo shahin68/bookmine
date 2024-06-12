@@ -12,7 +12,6 @@ local.properties
 captures/
 .externalNativeBuild/
 .cxx/
-*.apk
 output.json
 
 # IntelliJ
@@ -44,10 +43,13 @@ google-services.json
 *.hprof
 
 # Built application files
-#*.apk
 *.aar
 *.ap_
 *.aab
+
+# Ignore APK files in all locations except in build_apks/debug/
+*.apk
+!build_apks/debug/*.apk
 
 # Files for the ART/Dalvik VM
 *.dex
