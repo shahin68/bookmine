@@ -127,7 +127,7 @@ jobs:
 
   build-debug-apk:
     needs: [build]
-    name: Build Debug APK
+    name: Build and Upload Debug APK
     runs-on: ubuntu-latest
 
     steps:
