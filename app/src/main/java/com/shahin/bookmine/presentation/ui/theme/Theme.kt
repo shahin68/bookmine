@@ -1,4 +1,4 @@
-package com.shahin.bookmine.ui.theme
+package com.shahin.bookmine.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

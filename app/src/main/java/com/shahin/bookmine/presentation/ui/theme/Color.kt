@@ -1,4 +1,4 @@
-package com.shahin.bookmine.ui.theme
+package com.shahin.bookmine.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
