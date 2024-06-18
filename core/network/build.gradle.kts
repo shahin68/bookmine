@@ -13,6 +13,8 @@ android {
         minSdk = libs.versions.minSdkVersion.get().toInt()
 
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField ("String", "BASE_URL", "\"https://run.mocky.io/\"")
     }
 
     buildTypes {
@@ -30,6 +32,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
