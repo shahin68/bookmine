@@ -12,7 +12,6 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdkVersion.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -35,6 +34,9 @@ android {
 }
 
 dependencies {
+    testImplementation(libs.junit)
+    testImplementation (libs.mockito.kotlin)
+
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
