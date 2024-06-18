@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -10,8 +12,9 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdkVersion.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField ("String", "BASE_URL", "\"https://run.mocky.io/\"")
     }
 
     buildTypes {
@@ -30,8 +33,21 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    testImplementation(libs.junit)
+    testImplementation (libs.mockito.kotlin)
 
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson.converter)
+    implementation(libs.okhttp3.logging.interceptor)
+
+    // hilt
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
 }
