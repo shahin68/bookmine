@@ -1,16 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.shahin.bookmine"
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdkVersion.get().toInt()
 
     defaultConfig {
         applicationId = "com.shahin.bookmine"
-        minSdk = 23
-        targetSdk = 34
+        minSdk = libs.versions.minSdkVersion.get().toInt()
+        targetSdk = libs.versions.targetSdkVersion.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -22,7 +23,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -30,22 +31,25 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    composeCompiler {
+        enableStrongSkippingMode = true
     }
 }
 
