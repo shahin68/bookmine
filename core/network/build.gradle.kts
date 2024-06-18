@@ -50,4 +50,6 @@ dependencies {
     // hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
+
+    implementation(projects.core.common)
 }
