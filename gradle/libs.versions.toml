@@ -20,6 +20,7 @@ okhttp3 = "4.12.0"
 mockitoKotlin = "5.3.1"
 runner = "1.5.2"
 kotlinxCoroutinesTest = "1.6.1"
+room = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,6 +59,12 @@ retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-
 okhttp3-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp3" }
 okhttp3-tls = { group = "com.squareup.okhttp3", name = "okhttp-tls" }
 okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
+
+# room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 
 
 [plugins]
