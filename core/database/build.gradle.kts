@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdkVersion.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.shahin.core.database.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
 
         buildConfigField ("String", "DATABASE_NAME", "\"books-db\"")
@@ -40,9 +40,14 @@ android {
 }
 
 dependencies {
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
     // hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
 
     // room
     implementation(libs.androidx.room.runtime)
