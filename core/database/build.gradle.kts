@@ -56,4 +56,6 @@ dependencies {
 
     // room - paging
     implementation(libs.androidx.room.paging)
+
+    implementation(projects.core.common)
 }
