@@ -12,9 +12,11 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdkVersion.get().toInt()
 
+        testInstrumentationRunner = "com.shahin.core.network.HiltTestRunner"
+
         consumerProguardFiles("consumer-rules.pro")
 
-        buildConfigField ("String", "BASE_URL", "\"https://run.mocky.io/\"")
+        buildConfigField ("String", "BASE_URL_MOCKY_IO", "\"https://run.mocky.io/\"")
     }
 
     buildTypes {
@@ -40,14 +42,25 @@ android {
 
 dependencies {
     testImplementation(libs.junit)
+    testImplementation (libs.kotlinx.coroutines.test)
+
+    // mockito
     testImplementation (libs.mockito.kotlin)
 
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
+
+    // okhttp
+    implementation(platform(libs.okhttp3.bom))
+    implementation(libs.okhttp3.tls)
     implementation(libs.okhttp3.logging.interceptor)
 
     // hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
+    implementation(libs.androidx.runner)
+
+    implementation(projects.core.common)
 }
