@@ -16,7 +16,7 @@ android {
 
         consumerProguardFiles("consumer-rules.pro")
 
-        buildConfigField ("String", "BASE_URL", "\"https://run.mocky.io/\"")
+        buildConfigField ("String", "BASE_URL_MOCKY_IO", "\"https://run.mocky.io/\"")
     }
 
     buildTypes {
@@ -42,6 +42,7 @@ android {
 
 dependencies {
     testImplementation(libs.junit)
+    testImplementation (libs.kotlinx.coroutines.test)
 
     // mockito
     testImplementation (libs.mockito.kotlin)

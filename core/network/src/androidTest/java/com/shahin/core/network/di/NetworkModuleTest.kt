@@ -79,7 +79,7 @@ class NetworkModuleTest {
     @Test
     @SdkSuppress(maxSdkVersion = Build.VERSION_CODES.M)
     fun testTrustedSSLCertificatesApiBelow24() {
-        val certificateIds = listOf(R.raw.mocky_ca)
+        val certificateIds = intArrayOf(R.raw.mocky_ca)
         val networkModule = NetworkModule()
         val handshakeCertificates = networkModule.provideTrustedSSLCertificatesApi23(context, certificateIds)
 
@@ -90,7 +90,7 @@ class NetworkModuleTest {
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.N)
     fun testTrustedSSLCertificatesApi24AndAbove() {
-        val certificateIds = listOf(R.raw.mocky_ca)
+        val certificateIds = intArrayOf(R.raw.mocky_ca)
         val networkModule = NetworkModule()
         val handshakeCertificates = networkModule.provideTrustedSSLCertificatesApi23(context, certificateIds)
 

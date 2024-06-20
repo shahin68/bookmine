@@ -53,8 +53,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideListOfCertificates(): List<Int> {
-        return listOf(
+    fun provideListOfCertificates(): IntArray {
+        return intArrayOf(
             R.raw.mocky_ca
         )
     }
@@ -73,7 +73,7 @@ class NetworkModule {
     @Singleton
     fun provideTrustedSSLCertificatesApi23(
         @ApplicationContext context: Context,
-        certificateIds: List<Int>
+        certificateIds: IntArray
     ): HandshakeCertificates {
         return HandshakeCertificates.Builder().apply {
             certificateIds.forEach { certificateId ->
