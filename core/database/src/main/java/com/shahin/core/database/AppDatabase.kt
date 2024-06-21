@@ -14,7 +14,8 @@ import com.shahin.core.database.books.sources.BooksDao
     entities = [
         BookEntity::class
     ],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
