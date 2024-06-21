@@ -16,6 +16,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         buildConfigField ("String", "DATABASE_NAME", "\"books-db\"")
+        buildConfigField("String", "DB_PASSPHRASE", "\"my-passphrase123\"")
     }
 
     buildTypes {
@@ -56,6 +57,13 @@ dependencies {
 
     // room - paging
     implementation(libs.androidx.room.paging)
+
+    // Security
+    implementation (libs.androidx.security.crypto)
+
+    // Sqlcipher
+    implementation (libs.sqlcipher.android)
+
 
     implementation(projects.core.common)
 }
