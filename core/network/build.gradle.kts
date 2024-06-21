@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     androidTestImplementation(libs.hilt.android.testing)
-    implementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.runner)
 
     implementation(projects.core.common)
 }
