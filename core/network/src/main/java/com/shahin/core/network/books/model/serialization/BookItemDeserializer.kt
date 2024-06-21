@@ -3,6 +3,7 @@ package com.shahin.core.network.books.model.serialization
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
+import com.google.gson.JsonParseException
 import com.shahin.core.network.books.model.BookItem
 import java.lang.reflect.Type
 
@@ -15,24 +16,29 @@ import java.lang.reflect.Type
  *
  * We will map [BookItem] to appropriate models.
  *
- * NOTE: In case we receive a completely invalid Json in our responses
+ * @throws JsonParseException In case we receive a completely invalid Json in our responses
  * The [JsonParseException] will be caught as [com.shahin.core.network.model.NetworkResponse.ClientError]
  * in [com.shahin.core.network.NetworkResponseWrapper]
+ *
+ * @throws [Exception] In case remote server provides a [BookItem] with missing id field
+ * The [Exception] will be caught as [com.shahin.core.network.model.NetworkResponse.ClientError]
  */
 class BookItemDeserializer : JsonDeserializer<BookItem> {
     override fun deserialize(
         json: JsonElement?,
         typeOfT: Type?,
-        context: JsonDeserializationContext?
+        context: JsonDeserializationContext?,
     ): BookItem {
         val jsonObject = json?.asJsonObject
         return BookItem(
-            id = jsonObject?.get("id")?.asInt,
-            title = jsonObject?.get("title")?.asString ?: jsonObject?.get("titlee")?.asString,
-            description = jsonObject?.get("description")?.asString,
-            author = jsonObject?.get("author")?.asString,
-            releaseDate = jsonObject?.get("release_date")?.asString,
-            image = jsonObject?.get("image")?.asString
+            id = jsonObject?.get("id")?.asInt
+                ?: throw Exception("Failed to deserialize response: Remote server did not provide an id for at least one book item"),
+            title = jsonObject.get("title")?.asString
+                ?: jsonObject.get("titlee")?.asString.orEmpty(),
+            description = jsonObject.get("description")?.asString,
+            author = jsonObject.get("author")?.asString,
+            releaseDate = jsonObject.get("release_date")?.asString,
+            image = jsonObject.get("image")?.asString
         )
     }
 }
