@@ -4,12 +4,11 @@ import androidx.paging.PagingData
 import androidx.paging.testing.asSnapshot
 import com.shahin.core.database.books.BooksLocalRepository
 import com.shahin.core.database.books.model.BookEntity
-import com.shahin.core.database.books.sources.BooksDao
 import com.shahin.core.network.books.BooksRemoteRepository
 import com.shahin.core.network.books.model.BookItem
 import com.shahin.core.network.model.NetworkResponse
-import com.shahin.feature.books.data.model.Book
 import com.shahin.feature.books.data.extensions.toBookEntity
+import com.shahin.feature.books.data.model.Book
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.flowOf
@@ -28,7 +27,6 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-import javax.inject.Inject
 
 
 @HiltAndroidTest
@@ -37,9 +35,6 @@ class GetBooksUseCaseTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
-
-    @Inject
-    lateinit var booksDao: BooksDao
 
     private lateinit var getBooksUseCase: GetBooksUseCase
 
