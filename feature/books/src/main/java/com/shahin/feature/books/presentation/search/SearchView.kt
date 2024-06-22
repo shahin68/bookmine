@@ -55,7 +55,6 @@ fun SearchView(
     query: StateFlow<String>,
     queryHint: String,
     onQueryChange: (String) -> Unit,
-    onSearch: () -> Unit,
     onClearQuery: () -> Unit
 ) {
     val queryInput by query.collectAsState()
@@ -165,7 +164,6 @@ fun SearchView(
             onSearch = {
                 if (isFocused) focusManager.clearFocus()
                 if (queryInput.isBlank()) onClearQuery()
-                onSearch()
             }
         )
     )
@@ -179,7 +177,6 @@ private fun SearchViewEmptyPreview() {
         SearchView(
             query = MutableStateFlow(""),
             onQueryChange = {},
-            onSearch = {},
             onClearQuery = {},
             queryHint = "Search by title ..."
         )
@@ -194,7 +191,6 @@ private fun SearchViewFilledPreview() {
         SearchView(
             query = MutableStateFlow("Some title"),
             onQueryChange = {},
-            onSearch = {},
             onClearQuery = {},
             queryHint = "Search by title ..."
         )
