@@ -31,7 +31,6 @@ class SearchViewTest {
                     query = query,
                     queryHint = hint,
                     onQueryChange = {},
-                    onSearch = {},
                     onClearQuery = {})
             }
         }
@@ -58,7 +57,6 @@ class SearchViewTest {
                     query = query,
                     queryHint = hint,
                     onQueryChange = { query.value = it },
-                    onSearch = {},
                     onClearQuery = {}
                 )
             }
@@ -109,8 +107,8 @@ class SearchViewTest {
                     query = query,
                     queryHint = hint,
                     onQueryChange = {},
-                    onSearch = {},
-                    onClearQuery = {})
+                    onClearQuery = {}
+                )
             }
         }
 
@@ -154,7 +152,6 @@ class SearchViewTest {
                     query = query,
                     queryHint = hint,
                     onQueryChange = { query.value = it },
-                    onSearch = {},
                     onClearQuery = { query.value = "" }
                 )
             }
