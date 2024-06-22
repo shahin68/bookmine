@@ -31,12 +31,12 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @HiltAndroidTest
 @RunWith(MockitoJUnitRunner::class)
-class GetBooksUseCaseTest {
+class GetBooksUseCaseImplTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    private lateinit var getBooksUseCase: GetBooksUseCase
+    private lateinit var getBooksUseCase: GetBooksUseCaseImpl
 
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatcher = StandardTestDispatcher(testScheduler)
@@ -50,7 +50,7 @@ class GetBooksUseCaseTest {
     @Before
     fun setup() {
         hiltRule.inject()
-        getBooksUseCase = GetBooksUseCase(remoteRepository, localRepository)
+        getBooksUseCase = GetBooksUseCaseImpl(remoteRepository, localRepository)
     }
 
     @Test
