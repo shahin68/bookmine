@@ -9,7 +9,7 @@ import com.shahin.core.network.books.BooksRemoteRepository
 import com.shahin.core.network.books.model.BookItem
 import com.shahin.core.network.model.NetworkResponse
 import com.shahin.feature.books.data.model.Book
-import com.shahin.feature.books.extensions.toBookEntity
+import com.shahin.feature.books.data.extensions.toBookEntity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.flowOf

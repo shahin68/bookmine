@@ -7,8 +7,8 @@ import com.shahin.core.network.books.BooksRemoteRepository
 import com.shahin.core.network.books.model.BookItem
 import com.shahin.core.network.model.NetworkResponse
 import com.shahin.feature.books.data.model.Book
-import com.shahin.feature.books.extensions.toBook
-import com.shahin.feature.books.extensions.toBookEntity
+import com.shahin.feature.books.data.extensions.toBook
+import com.shahin.feature.books.data.extensions.toBookEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
