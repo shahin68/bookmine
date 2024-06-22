@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdkVersion.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.shahin.feature.books.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -39,6 +39,10 @@ android {
 }
 
 dependencies {
+    androidTestImplementation(libs.junit)
+    androidTestImplementation (libs.dexmaker.mockito)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.runner)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -54,6 +58,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.dagger.hilt.compose)
+    androidTestImplementation(libs.hilt.android.testing)
 
     // room - paging
     implementation(libs.androidx.room.paging)
@@ -61,8 +66,11 @@ dependencies {
     // paging
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
+    androidTestImplementation (libs.androidx.paging.testing)
 
     // coil
     implementation(libs.coil.compose)
 
+    implementation(projects.core.database)
+    implementation(projects.core.network)
 }

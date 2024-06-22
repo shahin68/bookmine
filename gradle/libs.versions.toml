@@ -18,8 +18,9 @@ hiltNavigationCompose = "1.2.0"
 retrofit = "2.11.0"
 okhttp3 = "4.12.0"
 mockitoKotlin = "5.3.1"
+dexmakerMockito = "2.28.1"
 runner = "1.5.2"
-kotlinxCoroutinesTest = "1.6.1"
+kotlinxCoroutinesTest = "1.8.1"
 room = "2.6.1"
 paging = "3.3.0"
 coil = "2.6.0"
@@ -47,6 +48,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 
 # mockito
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+dexmaker-mockito = { module = "com.linkedin.dexmaker:dexmaker-mockito", version.ref = "dexmakerMockito" }
 
 # hilt
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -73,6 +75,7 @@ androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "ro
 # paging
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
+androidx-paging-testing = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
 
 # coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
