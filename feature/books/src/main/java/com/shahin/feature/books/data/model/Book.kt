@@ -1,5 +1,7 @@
 package com.shahin.feature.books.data.model
 
+import androidx.annotation.DrawableRes
+
 /**
  * Represents a Book
  *
@@ -11,5 +13,7 @@ data class Book(
     val description: String? = null,
     val author: String? = null,
     val releaseDate: String? = null,
-    val image: String? = null
+    val image: String? = null,
+    @DrawableRes val placeHolder: Int? = null,
+    @DrawableRes val errorImage: Int? = null
 )

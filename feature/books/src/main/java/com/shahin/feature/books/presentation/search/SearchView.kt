@@ -22,7 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,8 +41,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shahin.feature.books.presentation.ui.theme.BooksPreviewTheme
-import com.shahin.feature.books.presentation.ui.theme.CornerRadiusSmall
+import com.shahin.feature.books.presentation.ui.theme.CornerRadiusExtraSmall
 import com.shahin.feature.books.presentation.ui.theme.PaddingExtraSmall
 import com.shahin.feature.books.presentation.ui.theme.PaddingMedium
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +57,7 @@ fun SearchView(
     onQueryChange: (String) -> Unit,
     onClearQuery: () -> Unit
 ) {
-    val queryInput by query.collectAsState()
+    val queryInput by query.collectAsStateWithLifecycle()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -85,7 +85,7 @@ fun SearchView(
                 drawRoundRect(
                     color = containerColor,
                     topLeft = Offset(x = 0f, y = -(size.height.times(animatedFloatFactor).times(2))),
-                    cornerRadius = CornerRadius(CornerRadiusSmall.times(1 - animatedFloatFactor).toPx())
+                    cornerRadius = CornerRadius(CornerRadiusExtraSmall.times(1 - animatedFloatFactor).toPx())
                 )
             },
         value = queryInput,
