@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookMine</string>
+    <string name="search_for_titles">Search for titles …</string>
+    <string name="oops_nothing_to_show_for_now">Oops… nothing to show for now!</string>
 </resources>
