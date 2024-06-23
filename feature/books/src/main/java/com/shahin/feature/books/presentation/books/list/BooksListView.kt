@@ -1,8 +1,12 @@
 package com.shahin.feature.books.presentation.books.list
 
+import android.util.Log
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,7 +27,11 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,11 +52,13 @@ import com.shahin.feature.books.presentation.ui.theme.CornerRadiusMedium
 import com.shahin.feature.books.presentation.ui.theme.PaddingExtraSmall
 import com.shahin.feature.books.presentation.ui.theme.PaddingLarge
 import com.shahin.feature.books.presentation.ui.theme.PaddingMedium
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOf
 
+const val CONTENT_FADE_ANIMATION_DURATION = 700
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -62,64 +72,92 @@ fun BooksListView(
 
     val books = booksFlow.collectAsLazyPagingItems()
 
-    ProgressBarView(
-        books = books,
-        ongoingSyncInProgress = ongoingSyncInProgress
-    )
+    var shouldShowEmptyPlaceholder by rememberSaveable {
+        mutableStateOf(true)
+    }
 
-    Box(
-        modifier = modifier
-            .imePadding()
-            .padding(PaddingMedium)
-            .clip(RoundedCornerShape(CornerRadiusMedium))
-    ) {
-        if (books.itemCount == 0) {
-            EmptyPlaceHolderView {
-                emptyPlaceholder()
-            }
+    LaunchedEffect(books.itemCount == 0) {
+        if (shouldShowEmptyPlaceholder) {
+            shouldShowEmptyPlaceholder = books.itemCount == 0
+        } else {
+            delay(CONTENT_FADE_ANIMATION_DURATION.toLong())
+            shouldShowEmptyPlaceholder = books.itemCount == 0
         }
-        LazyColumn(
-            modifier = Modifier.testTag("books-list"),
-            verticalArrangement = Arrangement.spacedBy(PaddingExtraSmall)
+    }
+
+    val transitionSpec = tween<Float>(CONTENT_FADE_ANIMATION_DURATION)
+
+    Box(modifier = modifier) {
+        ProgressBarView(
+            books = books,
+            ongoingSyncInProgress = ongoingSyncInProgress
+        )
+
+        Box(
+            modifier = Modifier
+                .imePadding()
+                .padding(PaddingMedium)
+                .clip(RoundedCornerShape(CornerRadiusMedium))
         ) {
-            items(
-                count = books.itemCount,
-                key = books.itemKey { book ->
-                    "${book.bookId}${book.author}"
-                },
-                contentType = books.itemContentType { book ->
-                    "${book.bookId}${book.releaseDate}"
+            AnimatedContent(
+                targetState = shouldShowEmptyPlaceholder,
+                label = "animated-books-content",
+                transitionSpec = {
+                    fadeIn(transitionSpec).togetherWith(fadeOut(transitionSpec))
                 }
-            ) { index ->
-                val book = books[index] ?: return@items
-                val isFirstItem = index == 0
-                val isLastItem = index == books.itemCount - 1
-                BookItemView(
-                    modifier = Modifier
-                        .then(
-                            if (BuildConfig.DEBUG) {
-                                Modifier.animateItemPlacement()
-                            } else {
-                                Modifier
+            ) { target ->
+                if (target) {
+                    EmptyPlaceHolderView {
+                        emptyPlaceholder()
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .testTag("books-list"),
+                        verticalArrangement = Arrangement.spacedBy(PaddingExtraSmall),
+                    ) {
+                        items(
+                            count = books.itemCount,
+                            key = books.itemKey { book ->
+                                "${book.bookId}${book.author}"
+                            },
+                            contentType = books.itemContentType { book ->
+                                "${book.bookId}${book.releaseDate}"
                             }
-                        )
-                        .clip(
-                            RoundedCornerShape(
-                                topStart = if (isFirstItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall,
-                                topEnd = if (isFirstItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall,
-                                bottomStart = if (isLastItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall,
-                                bottomEnd = if (isLastItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall
+                        ) { index ->
+                            val book = books[index] ?: return@items
+                            val isFirstItem = index == 0
+                            val isLastItem = index == books.itemCount - 1
+                            BookItemView(
+                                modifier = Modifier
+                                    .then(
+                                        if (BuildConfig.DEBUG) {
+                                            Modifier.animateItemPlacement()
+                                        } else {
+                                            Modifier
+                                        }
+                                    )
+                                    .clip(
+                                        RoundedCornerShape(
+                                            topStart = if (isFirstItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall,
+                                            topEnd = if (isFirstItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall,
+                                            bottomStart = if (isLastItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall,
+                                            bottomEnd = if (isLastItem) CornerRadiusMedium else CornerRadiusExtraExtraSmall
+                                        )
+                                    )
+                                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                    .clickable {
+                                        onBookItemClick(book)
+                                    }
+                                    .padding(PaddingMedium)
+                                    .testTag("book-item"),
+                                book = book
                             )
-                        )
-                        .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                        .clickable {
-                            onBookItemClick(book)
                         }
-                        .padding(PaddingMedium)
-                        .testTag("book-item"),
-                    book = book
-                )
+                    }
+                }
             }
+
         }
     }
 }
