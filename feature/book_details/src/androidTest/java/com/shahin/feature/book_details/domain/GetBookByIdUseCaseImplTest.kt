@@ -42,7 +42,7 @@ class GetBookByIdUseCaseImplTest {
 
 
     @Test
-    fun getLocalBooks_shouldReturnBooksFromLocalRepository() = runTest(testDispatcher) {
+    fun getLocalBookById_shouldReturnBookFromLocalRepository() = runTest(testDispatcher) {
         val bookEntity = BookEntity(1, "Book Title", "Description", "Author", "2023-08-10", "Image")
 
         `when`(localRepository.getBookById(1)).thenReturn(flowOf(bookEntity)) // mock the exact book
