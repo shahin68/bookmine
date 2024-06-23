@@ -12,7 +12,7 @@ class GetBookByIdUseCaseImpl @Inject constructor(
     private val localRepository: BooksLocalRepository
 ): GetBookByIdUseCase {
 
-    fun getBookById(bookId: Long): Flow<BookDetails> {
+    override fun getBookById(bookId: Long): Flow<BookDetails> {
         return localRepository.getBookById(id = bookId).map {
             it.toBookDetails()
         }
