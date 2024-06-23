@@ -62,7 +62,7 @@ fun BooksScreen(
 }
 
 @Composable
-fun HomeScreenContent(
+private fun HomeScreenContent(
     modifier: Modifier = Modifier,
     ongoingSyncInProgress: StateFlow<Boolean>,
     booksFlow: Flow<PagingData<Book>>,
