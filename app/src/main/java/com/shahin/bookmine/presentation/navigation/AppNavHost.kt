@@ -24,11 +24,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.shahin.bookmine.R
+import com.shahin.bookmine.presentation.MainViewModel
 import com.shahin.bookmine.presentation.ui.theme.BookMineTheme
 import com.shahin.bookmine.presentation.ui.theme.PaddingLarge
 import com.shahin.bookmine.presentation.ui.theme.PaddingMedium
@@ -36,12 +38,12 @@ import com.shahin.feature.book_details.presentation.BookDetailsScreen
 import com.shahin.feature.books.data.model.Book
 import com.shahin.feature.books.presentation.books.BooksScreen
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 const val TRANSITION_DURATION_MILLIS = 700
 
 @Composable
-fun AppNavHost() {
+fun AppNavHost(mainViewModel: MainViewModel = hiltViewModel()) {
 
     val navController = rememberNavController()
 
@@ -56,6 +58,7 @@ fun AppNavHost() {
 
         composable<ScreenBooks> {
             BooksScreen(
+                ongoingSyncInProgress = mainViewModel.ongoingSyncInProgress,
                 onBookItemClick = { book ->
                     navController.navigate(
                         ScreenBookDetails(
@@ -83,7 +86,8 @@ fun AppNavHost() {
 @Composable
 private fun BooksScreen(
     modifier: Modifier = Modifier,
-    onBookItemClick: (Book) -> Unit,
+    ongoingSyncInProgress: StateFlow<Boolean>,
+    onBookItemClick: (Book) -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -91,7 +95,7 @@ private fun BooksScreen(
             .testTag("books-screen")
     ) {
         BooksScreen(
-            ongoingSyncInProgress = MutableStateFlow(false),
+            ongoingSyncInProgress = ongoingSyncInProgress,
             itemPlaceHolder = R.drawable.placeholder,
             itemErrorImage = R.drawable.error_item,
             queryHint = stringResource(R.string.search_for_titles),
@@ -106,7 +110,9 @@ private fun BooksScreen(
 @Composable
 private fun EmptyBooksPlaceholder(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.padding(PaddingLarge).fillMaxSize(),
+        modifier = modifier
+            .padding(PaddingLarge)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(PaddingMedium)
     ) {
@@ -130,7 +136,7 @@ private fun BooksDetailsScreen(
     modifier: Modifier = Modifier,
     screenBookDetails: ScreenBookDetails,
     waitingForTransition: Long,
-    onClosed: () -> Unit,
+    onClosed: () -> Unit
 ) {
     var isLoading by remember { mutableStateOf(true) }
 
