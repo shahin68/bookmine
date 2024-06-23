@@ -1,8 +1,8 @@
 package com.shahin.core.database.di
 
+import com.shahin.core.common.extensions.hash
 import com.shahin.core.database.BuildConfig
 import com.shahin.core.database.common.Constants.DB_PASSPHRASE_KEY
-import com.shahin.core.database.extensions.hash
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

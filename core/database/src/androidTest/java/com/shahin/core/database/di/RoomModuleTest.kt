@@ -3,12 +3,12 @@ package com.shahin.core.database.di
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.shahin.core.common.extensions.hash
 import com.shahin.core.database.AppDatabase
 import com.shahin.core.database.BuildConfig
 import com.shahin.core.database.common.Constants.DB_PASSPHRASE_KEY
 import com.shahin.core.database.common.Constants.DB_PREFS
 import com.shahin.core.database.encryption.SupportFactory
-import com.shahin.core.database.extensions.hash
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals

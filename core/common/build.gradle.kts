@@ -41,5 +41,5 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.androidx.runner)
 
-    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit)
 }
