@@ -85,14 +85,13 @@ private fun HomeScreenContent(
             )
         }
     ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
-            BooksListView(
-                ongoingSyncInProgress = ongoingSyncInProgress,
-                booksFlow = booksFlow,
-                onBookItemClick = onBookItemClick,
-                emptyPlaceholder = emptyPlaceholder
-            )
-        }
+        BooksListView(
+            modifier = Modifier.padding(paddingValues),
+            ongoingSyncInProgress = ongoingSyncInProgress,
+            booksFlow = booksFlow,
+            onBookItemClick = onBookItemClick,
+            emptyPlaceholder = emptyPlaceholder
+        )
     }
 }
 
