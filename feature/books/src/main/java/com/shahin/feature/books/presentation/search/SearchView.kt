@@ -136,7 +136,8 @@ fun SearchView(
             Text(
                 modifier = Modifier.testTag("placeholder"),
                 text = queryHint,
-                color = contentColor.copy(alpha = 0.5f)
+                color = contentColor.copy(alpha = 0.5f),
+                style = MaterialTheme.typography.bodyMedium
             )
         },
         colors = TextFieldDefaults.colors(
@@ -165,7 +166,8 @@ fun SearchView(
                 if (isFocused) focusManager.clearFocus()
                 if (queryInput.isBlank()) onClearQuery()
             }
-        )
+        ),
+        textStyle = MaterialTheme.typography.bodyMedium
     )
 }
 
