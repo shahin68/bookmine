@@ -145,4 +145,23 @@ class BookItemDeserializerTest {
         gson.fromJson(json, BookItem::class.java)
     }
 
+    /**
+     * In case we receive a completely invalid Json in our responses
+     * The [JsonParseException] will be caught as [com.shahin.core.network.model.NetworkResponse.ClientError]
+     * in [com.shahin.core.network.NetworkResponseWrapper]
+     */
+    @Test(expected = Exception::class)
+    fun `test deserialize an response where id is not provided`() {
+        val json = """
+              {
+                "titlee": "Title typo",
+                "description": "Description",
+                "author": "Author",
+                "release_date": "2023-02-02",
+                "image": "image_url"
+              }
+        """
+        gson.fromJson(json, BookItem::class.java)
+    }
+
 }

@@ -3,12 +3,12 @@ package com.shahin.core.network.books
 import com.shahin.core.network.books.model.BookItem
 import com.shahin.core.network.books.services.BooksMockyIoApi
 import com.shahin.core.network.model.NetworkResponse
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
@@ -16,7 +16,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import retrofit2.Response
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class BooksRemoteRepositoryImplTest {
 
     private lateinit var booksRemoteRepository: BooksRemoteRepository

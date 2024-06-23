@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName
 data class BookItem(
 
     @SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
 
     @SerializedName("title")
     val title: String? = null,
