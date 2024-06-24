@@ -42,6 +42,8 @@ android {
 
 dependencies {
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.androidx.runner)
     testImplementation (libs.kotlinx.coroutines.test)
 
     // mockito
