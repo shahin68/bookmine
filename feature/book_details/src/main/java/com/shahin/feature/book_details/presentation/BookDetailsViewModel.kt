@@ -1,5 +1,6 @@
 package com.shahin.feature.book_details.presentation
 
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shahin.feature.book_details.data.model.BookDetails
@@ -8,21 +9,26 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BookDetailsViewModel @Inject constructor(
-    private val getBookByIdUseCase: GetBookByIdUseCase
-): ViewModel() {
+    private val getBookByIdUseCase: GetBookByIdUseCase,
+) : ViewModel() {
 
     private val _book = MutableStateFlow<BookDetails?>(null)
     val book: StateFlow<BookDetails?> = _book
 
-    fun getBookById(bookId: Long) {
+    fun getBookById(
+        bookId: Long,
+        @DrawableRes headerImagePlaceholder: Int? = null,
+        @DrawableRes headerImageError: Int? = null,
+    ) {
         viewModelScope.launch {
             getBookByIdUseCase.getBookById(bookId).collectLatest {
-                _book.value = it
+                _book.value = it.copy(placeHolder = headerImagePlaceholder, errorImage = headerImageError)
             }
         }
     }

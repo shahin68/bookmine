@@ -1,9 +1,11 @@
 package com.shahin.feature.books.presentation.books
 
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.shahin.feature.books.data.model.Book
 import com.shahin.feature.books.domain.GetBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BooksViewModel @Inject constructor(
-    private val getBooksUseCase: GetBooksUseCase
-): ViewModel() {
+    private val getBooksUseCase: GetBooksUseCase,
+) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String>
@@ -33,11 +35,18 @@ class BooksViewModel @Inject constructor(
     private val _books = MutableStateFlow<PagingData<Book>>(PagingData.empty())
     val books: StateFlow<PagingData<Book>> get() = _books
 
-    fun getBooks(query: String) {
+    fun getBooks(
+        query: String,
+        @DrawableRes itemPlaceHolder: Int? = null,
+        @DrawableRes itemErrorImage: Int? = null,
+    ) {
         viewModelScope.launch {
-            getBooksUseCase.getLocalBooks(titleQuery = query).cachedIn(viewModelScope).collectLatest {
-                _books.value = it
-            }
+            getBooksUseCase.getLocalBooks(titleQuery = query).cachedIn(viewModelScope)
+                .collectLatest {
+                    _books.value = it.map { book ->
+                        book.copy(placeHolder = itemPlaceHolder, errorImage = itemErrorImage)
+                    }
+                }
         }
     }
 

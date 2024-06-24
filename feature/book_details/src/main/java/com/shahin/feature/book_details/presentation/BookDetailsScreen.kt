@@ -90,12 +90,14 @@ fun BookDetailsScreen(
         onClose()
     }
 
-    val bookDetails by bookDetailsViewModel.book.map { book ->
-        book?.copy(placeHolder = headerImagePlaceholder, errorImage = headerImageError)
-    }.collectAsStateWithLifecycle(initialValue = null)
+    val bookDetails by bookDetailsViewModel.book.collectAsStateWithLifecycle()
 
     LaunchedEffect(bookId) {
-        bookDetailsViewModel.getBookById(bookId = bookId)
+        bookDetailsViewModel.getBookById(
+            bookId = bookId,
+            headerImagePlaceholder = headerImagePlaceholder,
+            headerImageError = headerImageError
+        )
     }
 
 
