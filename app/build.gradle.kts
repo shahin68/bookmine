@@ -97,6 +97,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    androidTestImplementation(libs.androidx.navigation.testing)
 
     // modules
     implementation(projects.feature.books)

@@ -2,26 +2,16 @@ package com.shahin.bookmine.presentation
 
 import com.shahin.bookmine.BuildConfig
 import com.shahin.core.network.books.model.BookItem
-import com.shahin.core.network.model.ErrorReason
 import com.shahin.core.network.model.NetworkResponse
 import com.shahin.feature.books.domain.GetBooksUseCase
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
