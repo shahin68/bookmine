@@ -30,6 +30,7 @@ jobs:
 
       - name: Print unit test reports directory contents
         run: ls -R app/build/reports/tests 
+        continue-on-error: true
 
       - name: Unit tests results
         if: always() 
@@ -37,6 +38,7 @@ jobs:
         with:
           name: unit-tests-results
           path: '**/build/reports/tests'
+          continue-on-error: true
 
   instrumentation-tests:
     name: Run Instrumented Tests
@@ -104,6 +106,7 @@ jobs:
 
     - name: Print instrumented test reports directory contents
       run: ls -R app/build/reports/androidTests
+      continue-on-error: true
 
     - name: Upload instrumented test results
       if: always()
@@ -111,6 +114,7 @@ jobs:
       with:
         name: instrumentation-tests-results
         path: '**/build/reports/androidTests'
+        continue-on-error: true
 
   build-debug-apk:
     needs: [unit-test, instrumentation-tests]
