@@ -37,15 +37,15 @@ fun BooksScreen(
 
     LaunchedEffect(Unit) {
         booksViewModel.searchQuery.collectLatest { query ->
-            booksViewModel.getBooks(query = query)
+            booksViewModel.getBooks(
+                query = query,
+                itemPlaceHolder = itemPlaceHolder,
+                itemErrorImage = itemErrorImage
+            )
         }
     }
 
-    val booksFlow = booksViewModel.books.map { pagingData ->
-        pagingData.map { book ->
-            book.copy(placeHolder = itemPlaceHolder, errorImage = itemErrorImage)
-        }
-    }
+    val booksFlow = booksViewModel.books
 
     HomeScreenContent(
         modifier = modifier,
