@@ -2,6 +2,7 @@ package com.shahin.feature.book_details.presentation
 
 import androidx.activity.addCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -44,6 +45,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -66,11 +68,14 @@ import com.shahin.feature.book_details.presentation.ui.theme.ElevationSmall
 import com.shahin.feature.book_details.presentation.ui.theme.HeaderImageSize
 import com.shahin.feature.book_details.presentation.ui.theme.PaddingMedium
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 
 @Composable
 fun BookDetailsScreen(
     modifier: Modifier = Modifier,
     bookId: Long,
+    @DrawableRes headerImagePlaceholder: Int? = null,
+    @DrawableRes headerImageError: Int? = null,
     bookDetailsViewModel: BookDetailsViewModel = hiltViewModel(),
     onClose: () -> Unit,
 ) {
@@ -82,14 +87,16 @@ fun BookDetailsScreen(
         onClose()
     }
 
-    val book by bookDetailsViewModel.book.collectAsStateWithLifecycle()
+    val bookDetails by bookDetailsViewModel.book.map { book ->
+        book?.copy(placeHolder = headerImagePlaceholder, errorImage = headerImageError)
+    }.collectAsStateWithLifecycle(initialValue = null)
 
     LaunchedEffect(bookId) {
         bookDetailsViewModel.getBookById(bookId = bookId)
     }
 
 
-    DetailsScreenAppBar(modifier = modifier, bookDetails = book, onClose = onClose)
+    DetailsScreenAppBar(modifier = modifier, bookDetails = bookDetails, onClose = onClose)
 }
 
 @Composable
@@ -120,7 +127,9 @@ private fun DetailsScreenAppBar(
                 .height(headerImageSize),
             model = bookDetails?.image,
             contentScale = ContentScale.Crop,
-            contentDescription = "cover-image"
+            contentDescription = "cover-image",
+            placeholder = bookDetails?.placeHolder?.let { painterResource(id = it) },
+            error = bookDetails?.errorImage?.let { painterResource(id = it) }
         )
         DetailsScreenContent(
             modifier = Modifier

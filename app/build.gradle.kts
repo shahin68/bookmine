@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -17,7 +18,9 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField ("String", "MOCKY_IDENTIFIER", "\"c7738499-6a6d-49f4-a747-e293c7ee0fea\"")
+
+        testInstrumentationRunner = "com.shahin.bookmine.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -58,6 +61,11 @@ android {
 
 dependencies {
 
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.dexmaker.mockito)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.runner)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,4 +87,20 @@ dependencies {
     // hilt
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.compose)
+    androidTestImplementation(libs.hilt.android.testing)
+
+    // kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    androidTestImplementation(libs.androidx.navigation.testing)
+
+    // modules
+    implementation(projects.feature.books)
+    implementation(projects.feature.bookDetails)
+    implementation(projects.core.network)
 }
