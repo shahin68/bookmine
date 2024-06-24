@@ -57,6 +57,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.shahin.core.common.commons.Constants.BOOK_MINE_DATE_PATTERN
+import com.shahin.core.common.commons.Constants.MOCKEY_DATE_PATTERN
+import com.shahin.core.common.extensions.formatReleaseDate
 import com.shahin.feature.book_details.R
 import com.shahin.feature.book_details.data.model.BookDetails
 import com.shahin.feature.book_details.presentation.ui.theme.BackButtonSize
@@ -255,7 +258,10 @@ private fun TopHeaderTitle(
                     modifier = Modifier
                         .align(Alignment.End)
                         .testTag("header-release-date"),
-                    text = bookDetails?.releaseDate.orEmpty(),
+                    text = bookDetails?.releaseDate.orEmpty().formatReleaseDate(
+                        inputPattern = MOCKEY_DATE_PATTERN,
+                        outputPattern = BOOK_MINE_DATE_PATTERN
+                    ),
                     style = MaterialTheme.typography.titleSmall
                 )
             }
@@ -293,7 +299,10 @@ private fun DetailsScreenContent(
                 modifier = Modifier
                     .align(Alignment.End)
                     .testTag("details-release-date"),
-                text = bookDetails?.releaseDate.orEmpty(),
+                text = bookDetails?.releaseDate.orEmpty().formatReleaseDate(
+                    inputPattern = MOCKEY_DATE_PATTERN,
+                    outputPattern = BOOK_MINE_DATE_PATTERN
+                ),
                 style = MaterialTheme.typography.titleSmall
             )
             Text(
