@@ -20,7 +20,7 @@ android {
 
         buildConfigField ("String", "MOCKY_IDENTIFIER", "\"c7738499-6a6d-49f4-a747-e293c7ee0fea\"")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.shahin.bookmine.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -61,6 +61,11 @@ android {
 
 dependencies {
 
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.dexmaker.mockito)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.runner)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -83,6 +88,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.dagger.hilt.compose)
+    androidTestImplementation(libs.hilt.android.testing)
 
     // kotlin serialization
     implementation(libs.kotlinx.serialization.json)

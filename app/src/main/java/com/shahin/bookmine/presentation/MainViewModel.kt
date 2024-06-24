@@ -21,6 +21,14 @@ class MainViewModel @Inject constructor(
     private val _errorResponse = MutableStateFlow<NetworkResponse<List<BookItem?>>?>(null)
     val errorResponse: StateFlow<NetworkResponse<List<BookItem?>>?> get() = _errorResponse
 
+    /**
+     * Not allowing this state to be nullable for the reason of adding an understanding
+     * to the logics of error handling
+     * we really wanna show that we want our retry count to go up to 3 and that's it
+     * and then we can check on UI leve if it is 3, we have no more retry attempts
+     *
+     * Making this state nullable adds a bit more complexity to how we should handle the act of retrying
+     */
     private val _retryCount = MutableStateFlow(0)
     val retryCount: StateFlow<Int> get() = _retryCount
 
@@ -34,13 +42,13 @@ class MainViewModel @Inject constructor(
     private fun syncBooks() {
         _ongoingSyncInProgress.value = true
         viewModelScope.launch {
-            fetchBooks()
+            syncBooksUseCase()
             repeat(3) {
                 delay(2000)
                 if (_errorResponse.value != null) {
                     clearErrorResponse()
                     _retryCount.value += 1
-                    fetchBooks()
+                    syncBooksUseCase()
                 }
             }
         }
@@ -55,7 +63,7 @@ class MainViewModel @Inject constructor(
         _errorResponse.value = null
     }
 
-    private suspend fun fetchBooks() {
+    private suspend fun syncBooksUseCase() {
         when (val response = getBooksUseCase.syncBooks(BuildConfig.MOCKY_IDENTIFIER)) {
             is NetworkResponse.Success -> {
                 _retryCount.value = 3
