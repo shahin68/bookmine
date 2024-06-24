@@ -68,4 +68,5 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(projects.core.database)
+    implementation(projects.core.common)
 }
