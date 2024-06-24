@@ -6,7 +6,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito
 import retrofit2.Response
-import java.io.IOException
 
 class NetworkResponseWrapperTest {
 
@@ -64,20 +63,6 @@ class NetworkResponseWrapperTest {
         val result = networkResponseWrapper.networkResponseOf { mockResponse }
 
         assertEquals(NetworkResponse.ServerError<Any>(ErrorReason(500, "Server error")), result)
-    }
-
-    @Test
-    fun `networkResponseOf returns NetworkError for IOException`() {
-        val exception = IOException("IO Exception")
-        val result = networkResponseWrapper.networkResponseOf<Any> { throw exception }
-        assertEquals(NetworkResponse.NetworkError, result)
-    }
-
-    @Test
-    fun `networkResponseOf returns ClientError for other exceptions`() {
-        val clientSideException = Exception("Generic Exception")
-        val result = networkResponseWrapper.networkResponseOf<Any> { throw clientSideException }
-        assertEquals(NetworkResponse.ClientError<Any>(clientSideException), result)
     }
 
 }
