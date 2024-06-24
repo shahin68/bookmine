@@ -12,7 +12,7 @@ class NetworkResponseWrapperTest {
     private val networkResponseWrapper = NetworkResponseWrapper()
 
     @Test
-    fun `networkResponseOf returns Success for successful response`() {
+    fun networkResponseOf_returns_Success_for_successful_response() {
         val mockResponse = Response.success("Success Data")
         val result = networkResponseWrapper.networkResponseOf { mockResponse }
         assertEquals(NetworkResponse.Success("Success Data"), result)
@@ -31,7 +31,7 @@ class NetworkResponseWrapperTest {
      * Asserting successful response handling functionality
      */
     @Test
-    fun `mockito networkResponseOf returns Success for successful response`() {
+    fun mockito_networkResponseOf_returns_Success_for_successful_response() {
         val mockResponse = Mockito.mock(Response::class.java)
         Mockito.`when`(mockResponse.isSuccessful).thenReturn(true)
         Mockito.`when`(mockResponse.code()).thenReturn(200)
@@ -54,7 +54,7 @@ class NetworkResponseWrapperTest {
     }
 
     @Test
-    fun `networkResponseOf returns ServerError for unsuccessful response`() {
+    fun networkResponseOf_returns_ServerError_for_unsuccessful_response() {
         val mockResponse = Mockito.mock(Response::class.java)
         Mockito.`when`(mockResponse.isSuccessful).thenReturn(false)
         Mockito.`when`(mockResponse.code()).thenReturn(500)

@@ -23,7 +23,7 @@ class BookItemDeserializerTest {
     }
 
     @Test
-    fun `test deserializing a valid book item Json response`() {
+    fun test_deserializing_a_valid_book_item_Json_response() {
         val json = """
             {
                 "id": 1,
@@ -46,7 +46,7 @@ class BookItemDeserializerTest {
     }
 
     @Test
-    fun `test deserializing a valid book item Json response when id is a negative value`() {
+    fun test_deserializing_a_valid_book_item_Json_response_when_id_is_a_negative_value() {
         val json = """
             {
                 "id": -5,
@@ -69,7 +69,7 @@ class BookItemDeserializerTest {
     }
 
     @Test
-    fun `test deserializing a book item Json with missing fields`() {
+    fun test_deserializing_a_book_item_Json_with_missing_fields() {
         val json = """
             {
                 "id": 2,
@@ -88,7 +88,7 @@ class BookItemDeserializerTest {
     }
 
     @Test
-    fun `test deserializing a book item when title field name is the alternative typo`() {
+    fun test_deserializing_a_book_item_when_title_field_name_is_the_alternative_typo() {
         val json = """
             {
                 "id": -5,
@@ -111,7 +111,7 @@ class BookItemDeserializerTest {
     }
 
     @Test
-    fun `test deserializing an book item with an id as string and some missing fields`() {
+    fun test_deserializing_an_book_item_with_an_id_as_string_and_some_missing_fields() {
         val json = """
             {
                 "id": "1",
@@ -133,7 +133,7 @@ class BookItemDeserializerTest {
      * in [com.shahin.core.network.NetworkResponseWrapper]
      */
     @Test(expected = JsonParseException::class)
-    fun `test deserialize an invalid Json altogether`() {
+    fun test_deserialize_an_invalid_Json_altogether() {
         val json = """
                 "id": 3,
                 "titlee": "Title with Alternative Field Name",
@@ -151,7 +151,7 @@ class BookItemDeserializerTest {
      * in [com.shahin.core.network.NetworkResponseWrapper]
      */
     @Test(expected = Exception::class)
-    fun `test deserialize an response where id is not provided`() {
+    fun test_deserialize_an_response_where_id_is_not_provided() {
         val json = """
               {
                 "titlee": "Title typo",
