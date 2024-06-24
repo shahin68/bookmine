@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -15,7 +18,9 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField ("String", "MOCKY_IDENTIFIER", "\"c7738499-6a6d-49f4-a747-e293c7ee0fea\"")
+
+        testInstrumentationRunner = "com.shahin.bookmine.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -39,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.10"
@@ -55,6 +61,17 @@ android {
 
 dependencies {
 
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.dexmaker.mockito)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.runner)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -63,11 +80,27 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // hilt
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.compose)
+    androidTestImplementation(libs.hilt.android.testing)
+
+    // kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    androidTestImplementation(libs.androidx.navigation.testing)
+
+    // modules
+    implementation(projects.feature.books)
+    implementation(projects.feature.bookDetails)
+    implementation(projects.core.network)
 }

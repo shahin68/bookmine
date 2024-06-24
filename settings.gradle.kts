@@ -25,3 +25,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
 include(":core:network")
+include(":core:common")
+include(":core:database")
+include(":feature:books")
+include(":feature:book_details")

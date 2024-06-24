@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BookMine</string>
+    <string name="search_for_titles">Search for titles …</string>
+    <string name="oops_nothing_to_show_for_now">Oops… nothing to show for now!</string>
+    <string name="failed_to_sync_you_can_contact_support">Failed to sync! you can contact support.</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection!</string>
+    <string name="something_went_wrong_please_try_again_later">Something went wrong! Please try again later.</string>
 </resources>
