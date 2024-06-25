@@ -41,7 +41,8 @@ interface BooksDao {
         CASE 
             WHEN release_date LIKE '%/%/%' THEN STRFTIME('%Y-%m-%d', release_date)
             ELSE STRFTIME('%Y-01-01', release_date || '-01-01')
-        END DESC
+        END DESC,
+        id ASC
     """)
     fun getBooksByTitle(title: String): PagingSource<Int, BookEntity>
 
