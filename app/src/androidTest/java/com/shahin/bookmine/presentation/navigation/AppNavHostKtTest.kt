@@ -56,10 +56,12 @@ class AppNavHostTest {
 
     @Test
     fun navigateToBookDetailsScreen() = runTest {
-        Thread.sleep(5000) // wait for some items to load
+        Thread.sleep(6000) // wait for some items to load
 
         composeTestRule.onAllNodesWithTag("books-screen")[0] // first item - whatever it is
             .performClick() // click on the first item
+
+        Thread.sleep(1000) // wait a second for the details screen to show up
 
         composeTestRule.onNodeWithTag("book-details-screen")
             .assertIsDisplayed()
