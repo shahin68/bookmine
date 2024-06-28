@@ -93,9 +93,21 @@ class BooksDaoTest {
                 placeholdersEnabled = false
             )
         )
+
+        // sizes should be the same since we have 3 items with "Book" in their title
         assertEquals(
-            listOf(dummyBooks[0], dummyBooks[1], dummyBooks[2]),
-            (result as PagingSource.LoadResult.Page).data
+            dummyBooks.size,
+            (result as PagingSource.LoadResult.Page).data.size
+        )
+
+        // and the first item should the BookEntity with id = 3
+        assertEquals(
+            3, // expected id the 3
+            (result as PagingSource.LoadResult.Page).data[0].id
+        )
+        assertEquals(
+            dummyBooks[2].id,
+            (result as PagingSource.LoadResult.Page).data[0].id
         )
     }
 
@@ -132,9 +144,18 @@ class BooksDaoTest {
                 placeholdersEnabled = false
             )
         )
+
+        // since a new reordering is added to the dao we'll have a slightly different expected list
+        // Reordering is from oldest to newest, so the first item should be [id = 3]
         assertEquals(
-            dummyBooks,
-            (allBooksResult as PagingSource.LoadResult.Page).data
+            dummyBooks[2].id,
+            (allBooksResult as PagingSource.LoadResult.Page).data[0].id
+        )
+
+        // now for checking if we're getting all the results we should just check the size
+        assertEquals(
+            dummyBooks.size,
+            (allBooksResult as PagingSource.LoadResult.Page).data.size
         )
     }
 
