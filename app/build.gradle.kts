@@ -15,10 +15,10 @@ android {
         applicationId = "com.shahin.bookmine"
         minSdk = libs.versions.minSdkVersion.get().toInt()
         targetSdk = libs.versions.targetSdkVersion.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
-        buildConfigField ("String", "MOCKY_IDENTIFIER", "\"c7738499-6a6d-49f4-a747-e293c7ee0fea\"")
+        buildConfigField ("String", "MOCKY_IDENTIFIER", "\"c23ee969-4e7c-40c3-9721-9c59b56346e0\"")
 
         testInstrumentationRunner = "com.shahin.bookmine.HiltTestRunner"
         vectorDrawables {
