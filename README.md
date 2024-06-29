@@ -1,5 +1,5 @@
 # bookmine
-A Clean architecture Kotlin compose app to mine books 
+A Multi Modular Clean architecture Kotlin compose app to mine books 
 
 ------
 
